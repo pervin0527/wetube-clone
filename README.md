@@ -7,13 +7,14 @@
 
 ## User Router
 
-/user/edit -> edit user  
-/user/delete -> delete user
+/user/:id -> see user  
+/user/logout -> log out  
+/user/edit -> edit my profile  
+/user/delete -> delete my profile
 
 ## Video Router
 
-/videos/watch -> watch video  
-/videos/edit -> edit video  
-/videos/delete -> delete video  
-/videos/comment -> comment on a video
-/videos/comment/delete -> delete a comment
+/videos/:id -> watch video  
+/videos/:id/edit -> Edit video  
+/videos/:id/delete -> delete video  
+/videos/upload -> edit video
