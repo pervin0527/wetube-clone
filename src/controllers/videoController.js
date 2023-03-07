@@ -1,12 +1,6 @@
-export const trending = (req, res) => res.send("Trending"); 
-export const watchVideo = (req, res) => {
-    console.log(req.params);
-    return res.send(`Watch Video #${req.params.id}`);
-}; 
-export const editVideo = (req, res) => {
-    console.log(req.params);
-    res.send("Edit Video");
-};
+export const trending = (req, res) => res.render("home", {pageTitle : "Home"});
+export const watchVideo = (req, res) => res.render("watch", {pageTitle : "Watch Video"});
+export const editVideo = (req, res) => res.render("edit", {pageTitle : "Edit Video"});
 export const deleteVideo = (req, res) => {
     console.log(req.params);
     res.send("Remove Video");

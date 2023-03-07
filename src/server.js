@@ -5,10 +5,14 @@ import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 
 const PORT = 4000;
+console.log(process.cwd());
+
 const app = express(); // create express application.
 const logger = morgan("dev");
-app.use(logger);
 
+app.set("view engine", "pug"); // express app의 views로 pug를 사용하겠다!
+app.set("views", process.cwd() + "/src/views");
+app.use(logger);
 app.use("/", globalRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
