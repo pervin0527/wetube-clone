@@ -1,4 +1,9 @@
-extend base.pug
+extend base
+include mixins/videos
 
 block content 
     h2 Welcome here!! You will see the trending Videos.
+    each video in videos
+        +video_block(video)
+    else
+        li Sorry Nothing found.

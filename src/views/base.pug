@@ -6,18 +6,8 @@ html(lang="kr")
 
     body 
         header
-            if fakeUser.loggedIn
-                small Hello #{fakeUser.username} 
-            nav 
-                ul
-                    if fakeUser.loggedIn  
-                        li
-                            a(href="/logout") Logout
-                    else
-                        li
-                            a(href="/login") Login
             h1=pageTitle
         main 
             block content
 
-    include partials/footer.pug
+    include partials/footer
