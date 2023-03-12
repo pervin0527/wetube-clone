@@ -45,8 +45,27 @@ export const getEdit = (req, res) => {
 // 변경사항을 저장해주는 controller
 export const postEdit = (req, res) => {
     const { id } = req.params;
-    const {title} = req.body; // form에 있는 value를 자바스크립트 형식으로 표현하는 것. 단 middleware가 필요하다.
-    // console.log(title);    // input의 name 속성 값과 동일해야 함. 아니면 못찾음.
+    const {title} = req.body;
     videos[id - 1].title = title;
-    return res.redirect(`/videos/${id}`); // 브라우저가 자동으로 이동(redirect)하도록 한다.
+    return res.redirect(`/videos/${id}`);
+};
+
+export const getUpload = (req, res) => {
+    return res.render("upload", {pageTitle : "Upload video"});
+};
+
+export const postUpload = (req, res) => {
+    console.log(req.body);
+    
+    const {title} = req.body;
+    const newVideo = {
+        title: title,
+        rating : 0,
+        comments : 0,
+        createdAt : "just now",
+        views : 0,
+        id : videos.length + 1,
+    };
+    videos.push(newVideo);
+    return res.redirect("/");
 };
