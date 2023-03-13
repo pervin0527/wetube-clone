@@ -4,5 +4,7 @@ block content
     h3 Upload Your Video
 
     form(method="POST")
-        input(type="text", placeholder="Title", required, name="title")
+        input(type="text", name="title", placeholder="Title", required)
+        input(type="text", name="description", placeholder="Descrption", required)
+        input(type="text", name="hashtags", placeholder="Hashtags separated by comma", required)
         input(type="submit", value="Upload video") 

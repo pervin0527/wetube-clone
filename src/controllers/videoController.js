@@ -1,48 +1,21 @@
-let videos = [
-    {
-        title: "Video #1",
-        rating : 5,
-        comments : 2,
-        createdAt : "2 minutes ago",
-        views : 1,
-        id : 1,
-    },
-    {
-        title: "Video #2",
-        rating : 5,
-        comments : 2,
-        createdAt : "2 minutes ago",
-        views : 59,
-        id : 2,
-    },
-    {
-        title: "Video #3",
-        rating : 5,
-        comments : 2,
-        createdAt : "2 minutes ago",
-        views : 59,
-        id : 3,
-    },
-];
+import Video from "../models/Video";
 
-export const trending = (req, res) => {
+export const home = async(req, res) => {
+    const videos = await Video.find({});
     return res.render("home", {pageTitle : "Home", videos});
 };
 
+
 export const watchVideo = (req, res) => {
     const { id } = req.params;
-    const video = videos[id - 1];
-    return res.render("watch", {pageTitle : `Watching : ${video.title}`, video});
+    return res.render("watch", {pageTitle : `Watching`});
 };
 
-// form을 화면에 보여주는 controller
 export const getEdit = (req, res) => {
     const { id } = req.params;
-    const video = videos[id - 1];
-    return res.render("edit", {pageTitle : `Editing : ${video.title}`, video});
+    return res.render("edit", {pageTitle : `Editing`});
 };
 
-// 변경사항을 저장해주는 controller
 export const postEdit = (req, res) => {
     const { id } = req.params;
     const {title} = req.body;
@@ -54,18 +27,25 @@ export const getUpload = (req, res) => {
     return res.render("upload", {pageTitle : "Upload video"});
 };
 
-export const postUpload = (req, res) => {
+export const postUpload = async(req, res) => {
     console.log(req.body);
     
-    const {title} = req.body;
-    const newVideo = {
-        title: title,
-        rating : 0,
-        comments : 0,
-        createdAt : "just now",
-        views : 0,
-        id : videos.length + 1,
-    };
-    videos.push(newVideo);
-    return res.redirect("/");
+    const {title, description, hashtags} = req.body;
+    try{
+        await Video.create({
+            title : title,
+            description : description,
+            // createdAt : Date.now(),
+            hashtags : hashtags.split(",").map((word) => `#${word}`),
+            meta : {
+                views:0,
+                rating:0
+            }
+        })
+        return res.redirect("/");
+    }
+    catch(error){
+        console.log(error);
+        return res.render("upload", {pageTitle : "Upload video", errorMessage : error._message});
+    }
 };
