@@ -1,10 +1,11 @@
 extend base
 
 block content 
-    h3 Upload Your Video
+    if errorMessage 
+        span=errorMessage 
 
     form(method="POST")
-        input(type="text", name="title", placeholder="Title", required)
-        input(type="text", name="description", placeholder="Descrption", required)
+        input(type="text", name="title", maxlength=80, placeholder="Title", required)
+        input(type="text", name="description", minlength=20, placeholder="Descrption", required)
         input(type="text", name="hashtags", placeholder="Hashtags separated by comma", required)
         input(type="submit", value="Upload video") 
